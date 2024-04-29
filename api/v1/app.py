@@ -21,7 +21,7 @@ def close_storage(exception):
 def not_found(error):
     """Handler for 404 errors that returns a
     JSON-formatted 404 status code response"""
-    return jsonify(error="Not found"), 400
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
