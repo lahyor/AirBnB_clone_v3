@@ -9,8 +9,11 @@ from flask_cors import CORS
 import json
 from flask import jsonify
 from werkzeug.exceptions import BadRequest
+from flasgger import Swagger
+from flasgger.utils import swag_from
 
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
@@ -26,6 +29,14 @@ def not_found(error):
     """Handler for 404 errors that returns a
     JSON-formatted 404 status code response"""
     return jsonify({"error": "Not found"}), 404
+
+
+app.config['SWAGGER'] = {
+    'title': 'AirBnB clone Restful API',
+    'uiversion': 3
+}
+
+Swagger(app)
 
 
 if __name__ == "__main__":
